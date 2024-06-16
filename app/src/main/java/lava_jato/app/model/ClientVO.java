@@ -8,6 +8,12 @@ public class ClientVO {
     private String cpf;
     private String email;
 
+    public ClientVO(){}
+    public ClientVO(int id){
+        this.id = id;
+    }
+
+
     public ClientVO(int id, String nome, String senha, String telefone, String cpf, String email){
         this.id = id;
         this.nome = nome;

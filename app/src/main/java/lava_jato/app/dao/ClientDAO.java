@@ -1,5 +1,6 @@
 package lava_jato.app.dao;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -14,6 +15,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+
+import lava_jato.app.model.ClientVO;
 public class ClientDAO extends SQLiteOpenHelper {
 
     private Context context;
@@ -35,18 +39,33 @@ public class ClientDAO extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String CREATE_TB_CLIENTS = "CREATE TABLE " + TB_CLIENT + " ("
-            +KEY_ID + " INTEGER PRIMARY KEY, "
-            +NOME + " TEXT, "
-            +SENHA + " TEXT, "
-            +TELEFONE+ " TEXT, "
-            +CPF+ " TEXT, "
-            +EMAIL+ " TEXT )";
+                +KEY_ID + " INTEGER PRIMARY KEY, "
+                +NOME + " TEXT, "
+                +SENHA + " TEXT, "
+                +TELEFONE+ " TEXT, "
+                +CPF+ " TEXT, "
+                +EMAIL+ " TEXT )";
 
-        dB.execSQL(CREATE_TB_CLIENTS);
+        db.execSQL(CREATE_TB_CLIENTS);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        db.execSQL("DROP TABLE IF EXISTS " + TB_CLIENT);
+        onCreate(db);
+    }
 
+    public void addClient(ClientVO clientVO){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+
+        contentValues.put(NOME, clientVO.getNome());
+        contentValues.put(SENHA, clientVO.getSenha());
+        contentValues.put(TELEFONE, clientVO.getTelefone());
+        contentValues.put(CPF, clientVO.getCpf());
+        contentValues.put(EMAIL, clientVO.getEmail());
+
+        db.insert(TB_CLIENT, null, contentValues);
     }
 }
+
