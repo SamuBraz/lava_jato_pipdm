@@ -13,7 +13,7 @@
         android:theme="@style/Theme.Lava_jatoPIPDM"
         tools:targetApi="31">
         <activity
-            android:name="lava_jato.app.view.LoginActivity"
+            android:name="lava_jato.app.view.AgendamentoActivity"
             android:exported="false" />
         <activity
             android:name="lava_jato.app.view.CadastroActivity"
