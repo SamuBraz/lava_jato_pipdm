@@ -42,7 +42,7 @@ public class ClientDAO extends SQLiteOpenHelper {
             +CPF+ " TEXT, "
             +EMAIL+ " TEXT )";
 
-        dB.execSQL(CREATE_TB_CLIENTS);
+        db.execSQL(CREATE_TB_CLIENTS);
     }
 
     @Override
