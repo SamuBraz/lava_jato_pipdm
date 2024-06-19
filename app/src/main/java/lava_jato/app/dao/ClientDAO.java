@@ -18,12 +18,19 @@ import androidx.core.view.WindowInsetsCompat;
 
 
 import lava_jato.app.model.ClientVO;
+import lava_jato.app.model.HorarioVO;
 public class ClientDAO extends SQLiteOpenHelper {
 
     private Context context;
     private static final String DB_NAME = "PI-LAVA-JATO";
     private static final int DB_VERSION = 1;
-    private static String TB_CLIENT = "tb_clients";
+    private static final String TB_HORARIO = "tb_horario";
+    private static final String TB_CLIENT = "tb_clients";
+
+    private static final String IDHORARIO = "id_horario";
+    private static final String IDCLIENT = "id_client";
+    private static final String HORARIOINCIO  = "horario_inicio";
+    private static final String HORARIOFINAL = "horario_final";
 
     private static final String KEY_ID = "id";
     private static final String NOME = "nome";
@@ -38,6 +45,7 @@ public class ClientDAO extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+
         String CREATE_TB_CLIENTS = "CREATE TABLE " + TB_CLIENT + " ("
                 +KEY_ID + " INTEGER PRIMARY KEY, "
                 +NOME + " TEXT, "
@@ -46,7 +54,15 @@ public class ClientDAO extends SQLiteOpenHelper {
                 +CPF+ " TEXT, "
                 +EMAIL+ " TEXT )";
 
+        String CREATE_TB_HORARIO = "CREATE TABLE " + TB_HORARIO + " ("
+                +IDHORARIO + " INTEGER PRIMARY KEY, "
+                +HORARIOINCIO + " TEXT, "
+                +HORARIOFINAL+ " TEXT, "
+                +IDCLIENT+ " INTEGER, "
+                +"FOREIGN KEY (IDCLIENT) REFERENCES TB_CLIENT(KEY_ID) )";
+
         db.execSQL(CREATE_TB_CLIENTS);
+        db.execSQL(CREATE_TB_HORARIO);
     }
 
     @Override
@@ -66,6 +82,18 @@ public class ClientDAO extends SQLiteOpenHelper {
         contentValues.put(EMAIL, clientVO.getEmail());
 
         db.insert(TB_CLIENT, null, contentValues);
+    }
+
+    public void addHorario(HorarioVO horarioVO){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+
+        contentValues.put(IDHORARIO, horarioVO.getIdHorario());
+        contentValues.put(IDCLIENT, horarioVO.getIdClient());
+        contentValues.put(HORARIOINCIO, horarioVO.getHorarioInicio());
+        contentValues.put(HORARIOFINAL, horarioVO.getHorarioTermino());
+
+        db.insert(TB_HORARIO, null, contentValues);
     }
 }
 

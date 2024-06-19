@@ -10,6 +10,7 @@ import app.lava_jato_pipdm.R;
 
 import lava_jato.app.dao.ClientDAO;
 import lava_jato.app.model.ClientVO;
+import lava_jato.app.model.HorarioVO;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -34,6 +35,14 @@ public class MainActivity extends AppCompatActivity {
         clientVO1.setCpf("1321321");
 
         clientDAO.addClient(clientVO1);
+
+        HorarioVO horarioVO = new HorarioVO();
+        horarioVO.setIdClient(1);
+        horarioVO.setIdHorario(2);
+        horarioVO.setHorarioInicio("18-06-2024-22:00");
+        horarioVO.setHorarioTermino("18-06-2024-22:20");
+
+        clientDAO.addHorario(horarioVO);
 
         Log.d("insert: ", "Registros inseridos no banco de dados...");
 
