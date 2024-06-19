@@ -2,9 +2,11 @@ package lava_jato.app.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 
 import app.lava_jato_pipdm.R;
 
@@ -15,12 +17,24 @@ import lava_jato.app.model.HorarioVO;
 public class MainActivity extends AppCompatActivity {
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+        Button button = findViewById(R.id.btn_dev_login);
+        button.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                Intent intent = new Intent(MainActivity.this, AgendamentoActivity.class);
+                startActivity(intent);
+                //finishAffinity(); desliga todas as activities no backstack ou usar intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+            }
+        });
+
     }
+
 
 
     public void btnOnClickCadastrarClient(View view) {
